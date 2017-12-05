@@ -76,12 +76,6 @@ public class CostRestController {
 		costs.setMongoOperations(mongoOperations);
 
 		List<Cost> list = costs.findAll();
-
-		/*
-		 * System.out.println("metoda saja: " + id); model.addAttribute("id",
-		 * id); Category category = new Category(); category.setCategoryId(44);
-		 * category.setCategoryName("Naziv neki");
-		 */
 		return list;
 	}
 }
