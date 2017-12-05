@@ -1,73 +1,87 @@
 package com.costs.repositories;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoOperations;
 
-import com.costs.data.Cost;
+import com.costs.data.Category;
 
 public class CategoryRepositoryImpl implements CategoryRepository {
+	private MongoOperations mongoOperations;
+
+	public MongoOperations getMongoOperations() {
+		return mongoOperations;
+	}
+
+	public void setMongoOperations(MongoOperations mongoOperations) {
+		this.mongoOperations = mongoOperations;
+	}
 
 	@Override
-	public <S extends Cost> List<S> saveAll(Iterable<S> entites) {
+	public <S extends Category> List<S> saveAll(Iterable<S> entites) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Cost> findAll() {
+	public List<Category> findAll() {
+		List<Category> listOfAllCategories = new ArrayList<Category>();
+		listOfAllCategories = mongoOperations.findAll(Category.class);
+
+		return listOfAllCategories;
+	}
+
+	@Override
+	public List<Category> findAll(Sort sort) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Cost> findAll(Sort sort) {
+	public <S extends Category> S insert(S entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Cost> S insert(S entity) {
+	public <S extends Category> List<S> insert(Iterable<S> entities) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Cost> List<S> insert(Iterable<S> entities) {
+	public <S extends Category> List<S> findAll(Example<S> example) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Cost> List<S> findAll(Example<S> example) {
+	public <S extends Category> List<S> findAll(Example<S> example, Sort sort) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Cost> List<S> findAll(Example<S> example, Sort sort) {
+	public Page<Category> findAll(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Page<Cost> findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+	public <S extends Category> S save(S entity) {
+		mongoOperations.save(entity);
+		return entity;
 	}
 
 	@Override
-	public <S extends Cost> S save(S entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Optional<Cost> findById(String id) {
+	public Optional<Category> findById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -79,7 +93,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 	}
 
 	@Override
-	public Iterable<Cost> findAllById(Iterable<String> ids) {
+	public Iterable<Category> findAllById(Iterable<String> ids) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -93,47 +107,47 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 	@Override
 	public void deleteById(String id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void delete(Cost entity) {
+	public void delete(Category entity) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void deleteAll(Iterable<? extends Cost> entities) {
+	public void deleteAll(Iterable<? extends Category> entities) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteAll() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public <S extends Cost> Optional<S> findOne(Example<S> example) {
+	public <S extends Category> Optional<S> findOne(Example<S> example) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Cost> Page<S> findAll(Example<S> example, Pageable pageable) {
+	public <S extends Category> Page<S> findAll(Example<S> example, Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Cost> long count(Example<S> example) {
+	public <S extends Category> long count(Example<S> example) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public <S extends Cost> boolean exists(Example<S> example) {
+	public <S extends Category> boolean exists(Example<S> example) {
 		// TODO Auto-generated method stub
 		return false;
 	}
