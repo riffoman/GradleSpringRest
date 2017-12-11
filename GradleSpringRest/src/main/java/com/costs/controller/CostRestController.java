@@ -55,6 +55,19 @@ public class CostRestController {
 
 		logger.info("Welcome home! The client locale is drugi parametar");
 
+		Utility u = new Utility();
+		u.setMongoOperations(mongoOperations);
+
+		Cost newCost = new Cost();
+		newCost.setCostAmmount(234);
+		newCost.setCostsDescription("Neki opis");
+		newCost.setCostId(u.getSequenceNextval(1));
+
+		CostRepositoryImpl costs = new CostRepositoryImpl();
+		costs.setMongoOperations(mongoOperations);
+
+		costs.insert(newCost);
+
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 
@@ -71,6 +84,20 @@ public class CostRestController {
 		return "welcomeJDBC";
 	}
 
+	@RequestMapping(value = "/cost/{costRecord}", method = RequestMethod.POST)
+	@ResponseBody
+	public Cost createNewCost(@PathVariable("costRecord") Cost costRecord) {
+
+		Utility u = new Utility();
+		u.setMongoOperations(mongoOperations);
+
+		CostRepositoryImpl costs = new CostRepositoryImpl();
+		costs.setMongoOperations(mongoOperations);
+
+		Cost costCreated = costs.insert(costRecord);
+		return costCreated;
+	}
+
 	@RequestMapping(value = "/cost/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Cost getCostById(@PathVariable("id") int id) {
@@ -84,7 +111,7 @@ public class CostRestController {
 		Cost costRecord = costs.findCostById(id);
 		return costRecord;
 	}
-	
+
 	@RequestMapping(value = "/cost/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public void deleteCostById(@PathVariable("id") int id) {
@@ -112,7 +139,7 @@ public class CostRestController {
 		List<Cost> list = costs.findAll();
 		return list;
 	}
-	
+
 	@RequestMapping(value = "/cost", method = RequestMethod.DELETE)
 	@ResponseBody
 	public void deleteAllCosts() {
@@ -142,13 +169,9 @@ public class CostRestController {
 
 	/*
 	 * 
-	 * POST request to /api/user/ with a
-	 * user object as JSON creates a new user PUT request to /api/user/3 with a
-	 * user object as JSON updates the user with ID 3 
-	 * DELETE request to
-	 * /api/user/4 deletes the user with ID 4 
-	 * DELETE request to /api/user/
-	 * deletes all the users
+	 * POST request to /api/user/ with a user object as JSON creates a new user
+	 * PUT request to /api/user/3 with a user object as JSON updates the user
+	 * with ID 3
 	 * 
 	 */
 
