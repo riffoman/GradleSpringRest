@@ -18,4 +18,6 @@ public class MongoConfig extends AbstractMongoConfiguration {
 		// TODO Auto-generated method stub
 		return new MongoClient();
 	}
+
+//neki ididorov komentars sddfgdfgdfgfd
 }
