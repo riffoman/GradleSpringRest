@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.bson.Document;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,10 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
 import com.costs.data.Cost;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
 
 public class CostRepositoryImpl implements CostRepository {
 
@@ -83,6 +88,14 @@ public class CostRepositoryImpl implements CostRepository {
 		return entity;
 	}
 
+	public Cost findCostById(int id) {
+		Query getCostDocumentById = new Query();
+		getCostDocumentById.addCriteria(Criteria.where("_id").is(id));
+		Cost costDocument = (Cost) mongoOperations.findOne(getCostDocumentById, Cost.class, "cost");
+
+		return costDocument;
+	}
+
 	@Override
 	public Optional<Cost> findById(String id) {
 		Query getCostDocumentById = new Query();
@@ -132,7 +145,17 @@ public class CostRepositoryImpl implements CostRepository {
 
 	@Override
 	public void deleteAll() {
-		mongoOperations.remove(Cost.class);
+		
+		//ovu metodu treba rijesiti
+		//mongoOperations.remo.remove(Cost.class);
+
+		MongoCollection<Document> collection = mongoOperations.getCollection("mainCollection");
+
+		// Delete All documents from collection using DBCursor
+		FindIterable<Document> cursor = collection.find();
+		while (cursor.iterator().hasNext()) {
+			((Document) collection).remove(cursor.iterator().next());
+		}
 	}
 
 	@Override

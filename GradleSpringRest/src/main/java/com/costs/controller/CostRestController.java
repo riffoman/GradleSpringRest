@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,9 +71,37 @@ public class CostRestController {
 		return "welcomeJDBC";
 	}
 
-	@RequestMapping(value = "/saja/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/cost/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Cost> saja(@PathVariable("id") int id, Model model) {
+	public Cost getCostById(@PathVariable("id") int id) {
+
+		Utility u = new Utility();
+		u.setMongoOperations(mongoOperations);
+
+		CostRepositoryImpl costs = new CostRepositoryImpl();
+		costs.setMongoOperations(mongoOperations);
+
+		Cost costRecord = costs.findCostById(id);
+		return costRecord;
+	}
+	
+	@RequestMapping(value = "/cost/{id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public void deleteCostById(@PathVariable("id") int id) {
+
+		Utility u = new Utility();
+		u.setMongoOperations(mongoOperations);
+
+		CostRepositoryImpl costs = new CostRepositoryImpl();
+		costs.setMongoOperations(mongoOperations);
+
+		Cost costRecord = costs.findCostById(id);
+		costs.delete(costRecord);
+	}
+
+	@RequestMapping(value = "/cost", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Cost> getAllCosts() {
 
 		Utility u = new Utility();
 		u.setMongoOperations(mongoOperations);
@@ -82,6 +111,19 @@ public class CostRestController {
 
 		List<Cost> list = costs.findAll();
 		return list;
+	}
+	
+	@RequestMapping(value = "/cost", method = RequestMethod.DELETE)
+	@ResponseBody
+	public void deleteAllCosts() {
+
+		Utility u = new Utility();
+		u.setMongoOperations(mongoOperations);
+
+		CostRepositoryImpl costs = new CostRepositoryImpl();
+		costs.setMongoOperations(mongoOperations);
+
+		costs.deleteAll();
 	}
 
 	@RequestMapping(value = "/categories", method = RequestMethod.GET)
@@ -97,6 +139,18 @@ public class CostRestController {
 		List<Category> categories = categoryRepository.findAll();
 		return categories;
 	}
+
+	/*
+	 * 
+	 * POST request to /api/user/ with a
+	 * user object as JSON creates a new user PUT request to /api/user/3 with a
+	 * user object as JSON updates the user with ID 3 
+	 * DELETE request to
+	 * /api/user/4 deletes the user with ID 4 
+	 * DELETE request to /api/user/
+	 * deletes all the users
+	 * 
+	 */
 
 	/*
 	 * @RequestMapping(value = "/category/", method = RequestMethod.POST) public
