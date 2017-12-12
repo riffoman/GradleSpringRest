@@ -7,67 +7,80 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import com.costs.data.Cost;
+import com.costs.data.User;
 
 public class UserRepositoryImpl implements UserRepository {
+	private MongoOperations mongoOperations;
+
+	public MongoOperations getMongoOperations() {
+		return mongoOperations;
+	}
+
+	public void setMongoOperations(MongoOperations mongoOperations) {
+		this.mongoOperations = mongoOperations;
+	}
 
 	@Override
-	public <S extends Cost> List<S> saveAll(Iterable<S> entites) {
+	public <S extends User> List<S> saveAll(Iterable<S> entites) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Cost> findAll() {
+	public List<User> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Cost> findAll(Sort sort) {
+	public List<User> findAll(Sort sort) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Cost> S insert(S entity) {
+	public <S extends User> S insert(S entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Cost> List<S> insert(Iterable<S> entities) {
+	public <S extends User> List<S> insert(Iterable<S> entities) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Cost> List<S> findAll(Example<S> example) {
+	public <S extends User> List<S> findAll(Example<S> example) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Cost> List<S> findAll(Example<S> example, Sort sort) {
+	public <S extends User> List<S> findAll(Example<S> example, Sort sort) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Page<Cost> findAll(Pageable pageable) {
+	public Page<User> findAll(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Cost> S save(S entity) {
+	public <S extends User> S save(S entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Optional<Cost> findById(String id) {
+	public Optional<User> findById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -79,7 +92,7 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public Iterable<Cost> findAllById(Iterable<String> ids) {
+	public Iterable<User> findAllById(Iterable<String> ids) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -97,13 +110,13 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public void delete(Cost entity) {
+	public void delete(User entity) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void deleteAll(Iterable<? extends Cost> entities) {
+	public void deleteAll(Iterable<? extends User> entities) {
 		// TODO Auto-generated method stub
 
 	}
@@ -115,27 +128,35 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public <S extends Cost> Optional<S> findOne(Example<S> example) {
+	public <S extends User> Optional<S> findOne(Example<S> example) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Cost> Page<S> findAll(Example<S> example, Pageable pageable) {
+	public <S extends User> Page<S> findAll(Example<S> example, Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends Cost> long count(Example<S> example) {
+	public <S extends User> long count(Example<S> example) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public <S extends Cost> boolean exists(Example<S> example) {
+	public <S extends User> boolean exists(Example<S> example) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public User findUserById(int id) {
+		Query getUserDocumentById = new Query();
+		getUserDocumentById.addCriteria(Criteria.where("_id").is(id));
+		User userDocument = (User) mongoOperations.findOne(getUserDocumentById, User.class, "user");
+
+		return userDocument;
 	}
 
 }

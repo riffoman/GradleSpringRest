@@ -10,8 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import com.costs.data.Category;
+import com.costs.data.Cost;
 
 public class CategoryRepositoryImpl implements CategoryRepository {
 	private MongoOperations mongoOperations;
@@ -78,6 +81,14 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 	public <S extends Category> S save(S entity) {
 		mongoOperations.save(entity);
 		return entity;
+	}
+
+	public Category findCategoryById(int id) {
+		Query getCategoryDocumentById = new Query();
+		getCategoryDocumentById.addCriteria(Criteria.where("_id").is(id));
+		Category categoryDocument = (Category) mongoOperations.findOne(getCategoryDocumentById, Category.class, "category");
+
+		return categoryDocument;
 	}
 
 	@Override
