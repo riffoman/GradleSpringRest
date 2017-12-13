@@ -47,17 +47,6 @@ public class UserRestController {
 	private final int CATEGORY_SEQUENCE_ID = 2;
 	private final int USER_SEQUENCE_ID = 3;
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/welcomeJDBC/{id}", method = RequestMethod.GET)
-	public String welcomeJDBC(@PathVariable("id") int id, Model model) {
-		logger.info("Napravio konekciju JDBCTemplate");
-
-		model.addAttribute("id", id);
-		return "welcomeJDBC";
-	}
-
 	@RequestMapping(value = "/user/{userRecord}", method = RequestMethod.POST)
 	@ResponseBody
 	public User createNewUser(@PathVariable("userRecord") User userRecord) {
@@ -125,19 +114,5 @@ public class UserRestController {
 		users.setMongoOperations(mongoOperations);
 
 		users.deleteAll();
-	}
-
-	@RequestMapping(value = "/categories", method = RequestMethod.GET)
-	@ResponseBody
-	public List<Category> getAllCategories() {
-
-		Utility u = new Utility();
-		u.setMongoOperations(mongoOperations);
-
-		CategoryRepositoryImpl categoryRepository = new CategoryRepositoryImpl();
-		categoryRepository.setMongoOperations(mongoOperations);
-
-		List<Category> categories = categoryRepository.findAll();
-		return categories;
 	}
 }

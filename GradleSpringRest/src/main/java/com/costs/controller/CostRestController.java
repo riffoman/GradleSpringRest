@@ -73,7 +73,7 @@ public class CostRestController {
 
 		User newUser = new User();
 		newUser.setUserLastName("username");
-		newUser.setUserId(u.getSequenceNextval(3));
+		newUser.setUserId(u.getSequenceNextval(USER_SEQUENCE_ID));
 
 		CostRepositoryImpl costs = new CostRepositoryImpl();
 		costs.setMongoOperations(mongoOperations);
