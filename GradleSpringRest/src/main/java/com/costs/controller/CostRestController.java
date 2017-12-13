@@ -25,8 +25,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.costs.data.Category;
 import com.costs.data.Cost;
+import com.costs.data.User;
 import com.costs.repositories.CategoryRepositoryImpl;
 import com.costs.repositories.CostRepositoryImpl;
+import com.costs.repositories.UserRepositoryImpl;
 import com.costs.util.Utility;
 
 /**
@@ -63,10 +65,29 @@ public class CostRestController {
 		newCost.setCostsDescription("Neki opis");
 		newCost.setCostId(u.getSequenceNextval(1));
 
+		Category newCategory = new Category();
+		newCategory.setCategoryName("katehorijaaaa");
+		newCategory.setCategoryId(u.getSequenceNextval(2));
+		
+
+
+		User newUser = new User();
+		newUser.setUserLastName("username");
+		newUser.setUserId(u.getSequenceNextval(3));
+
 		CostRepositoryImpl costs = new CostRepositoryImpl();
 		costs.setMongoOperations(mongoOperations);
 
+		CategoryRepositoryImpl categories = new CategoryRepositoryImpl();
+		categories.setMongoOperations(mongoOperations);
+		
+
+		UserRepositoryImpl users = new UserRepositoryImpl();
+		users.setMongoOperations(mongoOperations);
+
+		categories.insert(newCategory);
 		costs.insert(newCost);
+		users.insert(newUser);
 
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -74,14 +95,6 @@ public class CostRestController {
 		String formattedDate = dateFormat.format(date);
 
 		return "home";
-	}
-
-	@RequestMapping(value = "/welcomeJDBC/{id}", method = RequestMethod.GET)
-	public String welcomeJDBC(@PathVariable("id") int id, Model model) {
-		logger.info("Napravio konekciju JDBCTemplate");
-
-		model.addAttribute("id", id);
-		return "welcomeJDBC";
 	}
 
 	@RequestMapping(value = "/cost/{costRecord}", method = RequestMethod.POST)
@@ -152,47 +165,4 @@ public class CostRestController {
 
 		costs.deleteAll();
 	}
-
-	@RequestMapping(value = "/categories", method = RequestMethod.GET)
-	@ResponseBody
-	public List<Category> getAllCategories() {
-
-		Utility u = new Utility();
-		u.setMongoOperations(mongoOperations);
-
-		CategoryRepositoryImpl categoryRepository = new CategoryRepositoryImpl();
-		categoryRepository.setMongoOperations(mongoOperations);
-
-		List<Category> categories = categoryRepository.findAll();
-		return categories;
-	}
-
-	/*
-	 * 
-	 * POST request to /api/user/ with a user object as JSON creates a new user
-	 * PUT request to /api/user/3 with a user object as JSON updates the user
-	 * with ID 3
-	 * 
-	 */
-
-	/*
-	 * @RequestMapping(value = "/category/", method = RequestMethod.POST) public
-	 * ResponseEntity<Void> createCategory(@RequestBody Category category) {
-	 * System.out.println("Creating User " + category.getCategoryName());
-	 * 
-	 * /* if (userService.isUserExist(user)) {
-	 * System.out.println("A User with name " + user.getName() +
-	 * " already exist"); return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-	 * }
-	 */
-
-	/*
-	 * CategoryRepositoryImpl categoryRepository = new CategoryRepositoryImpl();
-	 * categoryRepository.save(category);
-	 * 
-	 * HttpHeaders headers = new HttpHeaders();
-	 * headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.
-	 * getId()).toUri()); return new ResponseEntity<Void>(headers,
-	 * HttpStatus.CREATED); }
-	 */
 }

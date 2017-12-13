@@ -1,5 +1,6 @@
 package com.costs.repositories;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,8 +34,10 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public List<User> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<User> listOfAllUsers = new ArrayList<User>();
+		listOfAllUsers = mongoOperations.findAll(User.class);
+
+		return listOfAllUsers;
 	}
 
 	@Override
@@ -45,7 +48,7 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public <S extends User> S insert(S entity) {
-		// TODO Auto-generated method stub
+		mongoOperations.insert(entity);
 		return null;
 	}
 

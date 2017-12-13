@@ -49,7 +49,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
 
 	@Override
 	public <S extends Category> S insert(S entity) {
-		// TODO Auto-generated method stub
+		mongoOperations.insert(entity);
 		return null;
 	}
 
