@@ -43,7 +43,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 
-		clients.inMemory().withClient(clientId).resourceIds("resourceId")
+		clients.inMemory().withClient(clientId).resourceIds(resourceId)
 				.authorizedGrantTypes("password", "authorization_code", "refresh_token", "implicit")
 				.authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT").scopes("read", "write", "trust").secret(clientSecret)
 				.accessTokenValiditySeconds(1200).// Access token is only valid

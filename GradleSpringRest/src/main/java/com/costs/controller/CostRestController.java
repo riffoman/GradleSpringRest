@@ -60,39 +60,15 @@ public class CostRestController {
 		Utility u = new Utility();
 		u.setMongoOperations(mongoOperations);
 
-		Cost newCost = new Cost();
-		newCost.setCostAmmount(234);
-		newCost.setCostsDescription("Neki opis");
-		newCost.setCostId(u.getSequenceNextval(1));
-
-		Category newCategory = new Category();
-		newCategory.setCategoryName("katehorijaaaa");
-		newCategory.setCategoryId(u.getSequenceNextval(2));
-		
-
-
 		User newUser = new User();
-		newUser.setUserLastName("username");
+		newUser.setUserUsername("dd");
+		newUser.setUserPassword("dd");
 		newUser.setUserId(u.getSequenceNextval(USER_SEQUENCE_ID));
-
-		CostRepositoryImpl costs = new CostRepositoryImpl();
-		costs.setMongoOperations(mongoOperations);
-
-		CategoryRepositoryImpl categories = new CategoryRepositoryImpl();
-		categories.setMongoOperations(mongoOperations);
 		
 
 		UserRepositoryImpl users = new UserRepositoryImpl();
 		users.setMongoOperations(mongoOperations);
-
-		categories.insert(newCategory);
-		costs.insert(newCost);
 		users.insert(newUser);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
 
 		return "home";
 	}

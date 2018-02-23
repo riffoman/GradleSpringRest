@@ -158,7 +158,7 @@ public class UserRepositoryImpl implements UserRepository {
 	
 	public User findUserByUsername(String username) {
 		Query getUserDocumentByUsername = new Query();
-		getUserDocumentByUsername.addCriteria(Criteria.where("username").is(username));
+		getUserDocumentByUsername.addCriteria(Criteria.where("userUsername").is(username));
 		User userDocument = (User) mongoOperations.findOne(getUserDocumentByUsername, User.class, "user");
 
 		return userDocument;
