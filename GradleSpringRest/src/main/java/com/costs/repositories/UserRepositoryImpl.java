@@ -11,10 +11,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Component;
 
 import com.costs.data.Cost;
 import com.costs.data.User;
 
+@Component
 public class UserRepositoryImpl implements UserRepository {
 	private MongoOperations mongoOperations;
 
@@ -152,6 +154,14 @@ public class UserRepositoryImpl implements UserRepository {
 	public <S extends User> boolean exists(Example<S> example) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public User findUserByUsername(String username) {
+		Query getUserDocumentByUsername = new Query();
+		getUserDocumentByUsername.addCriteria(Criteria.where("userUsername").is(username));
+		User userDocument = (User) mongoOperations.findOne(getUserDocumentByUsername, User.class, "user");
+
+		return userDocument;
 	}
 
 	public User findUserById(int id) {

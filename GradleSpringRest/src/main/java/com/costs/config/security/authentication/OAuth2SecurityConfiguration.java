@@ -25,11 +25,16 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private ClientDetailsService clientDetailsService;
 	
+
+    @Autowired
+    CostUserDetailsService userDetailsService ;
+	
 	@Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
+        /*auth.inMemoryAuthentication()
         .withUser("bill").password("abc123").roles("ADMIN").and()
-        .withUser("bob").password("abc123").roles("USER");
+        .withUser("bob").password("abc123").roles("USER");*/
+        auth.userDetailsService(userDetailsService); 
     }
 
     @Override

@@ -5,4 +5,6 @@ import com.costs.data.User;
 
 public interface UserRepository extends MongoRepository<User, String> {
 
+	public User findUserByUsername(String username);
+
 }
