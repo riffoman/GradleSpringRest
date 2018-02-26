@@ -46,6 +46,8 @@ public class CostRestController {
 	private final int COST_SEQUENCE_ID = 1;
 	private final int CATEGORY_SEQUENCE_ID = 2;
 	private final int USER_SEQUENCE_ID = 3;
+	@Autowired
+	private MongoOperations mongoOperations;
 
 	/**
 	 * Simply selects the home view to render by returning its name.

@@ -12,10 +12,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
 
 import com.costs.data.Category;
 import com.costs.data.Cost;
 
+@Repository
 public class CategoryRepositoryImpl implements CategoryRepository {
 	@Autowired
 	private MongoOperations mongoOperations;

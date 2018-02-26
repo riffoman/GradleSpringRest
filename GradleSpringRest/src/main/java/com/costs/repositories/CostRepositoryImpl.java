@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
 
 import com.costs.data.Cost;
 import com.mongodb.BasicDBObject;
@@ -22,6 +23,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 
+@Repository
 public class CostRepositoryImpl implements CostRepository {
 	@Autowired
 	private MongoOperations mongoOperations;
