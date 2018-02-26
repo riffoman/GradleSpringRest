@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.bson.Document;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
 
 import com.costs.data.Cost;
 import com.mongodb.BasicDBObject;
@@ -21,8 +23,9 @@ import com.mongodb.DBCursor;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 
+@Repository
 public class CostRepositoryImpl implements CostRepository {
-
+	@Autowired
 	private MongoOperations mongoOperations;
 
 	public MongoOperations getMongoOperations() {

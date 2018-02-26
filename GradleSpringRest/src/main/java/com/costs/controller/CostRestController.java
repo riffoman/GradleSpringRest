@@ -41,13 +41,13 @@ import com.costs.util.Utility;
 @Controller
 @EnableWebMvc
 public class CostRestController {
-	@Autowired
-	MongoOperations mongoOperations;
 
 	private static final Logger logger = Logger.getLogger(CostRestController.class);
 	private final int COST_SEQUENCE_ID = 1;
 	private final int CATEGORY_SEQUENCE_ID = 2;
 	private final int USER_SEQUENCE_ID = 3;
+	@Autowired
+	private MongoOperations mongoOperations;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -58,7 +58,6 @@ public class CostRestController {
 		logger.info("Welcome home! The client locale is drugi parametar");
 
 		Utility u = new Utility();
-		u.setMongoOperations(mongoOperations);
 
 		User newUser = new User();
 		newUser.setUserUsername("dd");
@@ -67,7 +66,6 @@ public class CostRestController {
 		
 
 		UserRepositoryImpl users = new UserRepositoryImpl();
-		users.setMongoOperations(mongoOperations);
 		users.insert(newUser);
 
 		return "home";
@@ -78,10 +76,8 @@ public class CostRestController {
 	public Cost createNewCost(@PathVariable("costRecord") Cost costRecord) {
 
 		Utility u = new Utility();
-		u.setMongoOperations(mongoOperations);
 
 		CostRepositoryImpl costs = new CostRepositoryImpl();
-		costs.setMongoOperations(mongoOperations);
 
 		Cost costCreated = costs.insert(costRecord);
 		return costCreated;
@@ -92,10 +88,8 @@ public class CostRestController {
 	public Cost getCostById(@PathVariable("id") int id) {
 
 		Utility u = new Utility();
-		u.setMongoOperations(mongoOperations);
 
 		CostRepositoryImpl costs = new CostRepositoryImpl();
-		costs.setMongoOperations(mongoOperations);
 
 		Cost costRecord = costs.findCostById(id);
 		return costRecord;
@@ -106,10 +100,8 @@ public class CostRestController {
 	public void deleteCostById(@PathVariable("id") int id) {
 
 		Utility u = new Utility();
-		u.setMongoOperations(mongoOperations);
 
 		CostRepositoryImpl costs = new CostRepositoryImpl();
-		costs.setMongoOperations(mongoOperations);
 
 		Cost costRecord = costs.findCostById(id);
 		costs.delete(costRecord);
@@ -120,10 +112,8 @@ public class CostRestController {
 	public List<Cost> getAllCosts() {
 
 		Utility u = new Utility();
-		u.setMongoOperations(mongoOperations);
 
 		CostRepositoryImpl costs = new CostRepositoryImpl();
-		costs.setMongoOperations(mongoOperations);
 
 		List<Cost> list = costs.findAll();
 		return list;
@@ -134,10 +124,8 @@ public class CostRestController {
 	public void deleteAllCosts() {
 
 		Utility u = new Utility();
-		u.setMongoOperations(mongoOperations);
 
 		CostRepositoryImpl costs = new CostRepositoryImpl();
-		costs.setMongoOperations(mongoOperations);
 
 		costs.deleteAll();
 	}
