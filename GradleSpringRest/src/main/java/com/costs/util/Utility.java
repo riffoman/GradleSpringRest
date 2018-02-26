@@ -7,8 +7,10 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Component
+@EnableWebMvc
 public class Utility {
 	@Autowired
 	private MongoOperations mongoOperations;
