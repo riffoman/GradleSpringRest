@@ -4,3 +4,6 @@
 GradleSpringRest/bin/com/costs/config/*
 GradleSpringRest/bin/com/costs/controller/*
 GradleSpringRest/bin/com/costs/repositories/*
+GradleSpringRest/bin/com/costs/util/*
+GradleSpringRest/bin/com/costs/data/*
+GradleSpringRest/bin/com/costs/beans/*
