@@ -39,8 +39,6 @@ import com.costs.util.Utility;
 @Controller
 @EnableWebMvc
 public class CategoryRestController {
-	@Autowired
-	MongoOperations mongoOperations;
 
 	private static final Logger logger = Logger.getLogger(CategoryRestController.class);
 	private final int COST_SEQUENCE_ID = 1;
@@ -52,10 +50,8 @@ public class CategoryRestController {
 	public Category getCategoryById(@PathVariable("categoryId") int categoryId) {
 
 		Utility u = new Utility();
-		u.setMongoOperations(mongoOperations);
 
 		CategoryRepositoryImpl categories = new CategoryRepositoryImpl();
-		categories.setMongoOperations(mongoOperations);
 
 		Category categoryRecord = categories.findCategoryById(categoryId);
 		return categoryRecord;
@@ -66,10 +62,8 @@ public class CategoryRestController {
 	public void deleteCostById(@PathVariable("categoryId") int categoryId) {
 
 		Utility u = new Utility();
-		u.setMongoOperations(mongoOperations);
 
 		CategoryRepositoryImpl categories = new CategoryRepositoryImpl();
-		categories.setMongoOperations(mongoOperations);
 
 		Category categoryRecord = categories.findCategoryById(categoryId);
 		categories.delete(categoryRecord);
@@ -80,10 +74,8 @@ public class CategoryRestController {
 	public List<Category> getAllCategories() {
 
 		Utility u = new Utility();
-		u.setMongoOperations(mongoOperations);
 
 		CategoryRepositoryImpl categoryRepository = new CategoryRepositoryImpl();
-		categoryRepository.setMongoOperations(mongoOperations);
 
 		List<Category> categories = categoryRepository.findAll();
 		return categories;
@@ -94,10 +86,8 @@ public class CategoryRestController {
 	public void deleteAllCosts() {
 
 		Utility u = new Utility();
-		u.setMongoOperations(mongoOperations);
 
 		CategoryRepositoryImpl categoryRepository = new CategoryRepositoryImpl();
-		categoryRepository.setMongoOperations(mongoOperations);
 
 		categoryRepository.deleteAll();
 	}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,7 @@ import com.costs.data.User;
 
 @Component
 public class UserRepositoryImpl implements UserRepository {
+	@Autowired
 	private MongoOperations mongoOperations;
 
 	public MongoOperations getMongoOperations() {

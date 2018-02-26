@@ -17,6 +17,7 @@ import com.costs.data.Category;
 import com.costs.data.Cost;
 
 public class CategoryRepositoryImpl implements CategoryRepository {
+	@Autowired
 	private MongoOperations mongoOperations;
 
 	public MongoOperations getMongoOperations() {
