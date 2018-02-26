@@ -7,3 +7,12 @@ GradleSpringRest/bin/com/costs/repositories/*
 GradleSpringRest/bin/com/costs/util/*
 GradleSpringRest/bin/com/costs/data/*
 GradleSpringRest/bin/com/costs/beans/*
+GradleSpringRest/build/classes/java/main/com/costs/config/security/authentication/*
+GradleSpringRest/build/classes/java/main/com/costs/repositories/*
+GradleSpringRest/build/classes/java/main/com/costs/config/*
+GradleSpringRest/build/classes/java/main/com/costs/util/*
+GradleSpringRest/build/classes/java/main/com/costs/data/*
+GradleSpringRest/build/classes/java/main/com/costs/controller/*
+GradleSpringRest/build/classes/java/main/com/costs/beans/*
+
+GradleSpringRest/build/classes/java/main/com/costs/config/security/authentication/*
