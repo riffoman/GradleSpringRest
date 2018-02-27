@@ -1,6 +1,7 @@
 package com.costs.controller;
 
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.costs.data.User;
 import com.costs.repositories.UserRepositoryImpl;
+import com.costs.util.Utility;
 
 /**
  * Handles requests for the application home page.
@@ -25,16 +27,24 @@ import com.costs.repositories.UserRepositoryImpl;
 @Controller
 @EnableWebMvc
 public class UserRestController {
+	@Autowired
+	private MongoOperations mongoOperations;
 
 	private static final Logger logger = Logger.getLogger(UserRestController.class);
-	private final int COST_SEQUENCE_ID = 1;
-	private final int CATEGORY_SEQUENCE_ID = 2;
 	private final int USER_SEQUENCE_ID = 3;
 
 	@RequestMapping(value = "/user/{userRecord}", method = RequestMethod.POST)
 	@ResponseBody
 	public User createNewUser(@PathVariable("userRecord") User userRecord) {
+
+		Utility u = new Utility();
+		u.setMongoOperations(mongoOperations);
+		
 		UserRepositoryImpl users = new UserRepositoryImpl();
+		users.setMongoOperations(mongoOperations);
+
+		
+		userRecord.setUserId(u.getSequenceNextval(USER_SEQUENCE_ID));
 
 		User userCreated = users.insert(userRecord);
 		return userCreated;
@@ -45,6 +55,7 @@ public class UserRestController {
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public User getUserById(@PathVariable("id") int id) {
 		UserRepositoryImpl users = new UserRepositoryImpl();
+		users.setMongoOperations(mongoOperations);
 
 		User userRecord = users.findUserById(id);
 		return userRecord;
@@ -55,6 +66,7 @@ public class UserRestController {
 	public void deleteUserById(@PathVariable("id") int id) {
 
 		UserRepositoryImpl users = new UserRepositoryImpl();
+		users.setMongoOperations(mongoOperations);
 
 		User userRecord = users.findUserById(id);
 		users.delete(userRecord);
@@ -65,6 +77,7 @@ public class UserRestController {
 	public List<User> getAllUsers() {
 
 		UserRepositoryImpl users = new UserRepositoryImpl();
+		users.setMongoOperations(mongoOperations);
 
 		List<User> list = users.findAll();
 		return list;
@@ -75,6 +88,7 @@ public class UserRestController {
 	public void deleteAllUsers() {
 
 		UserRepositoryImpl users = new UserRepositoryImpl();
+		users.setMongoOperations(mongoOperations);
 
 		users.deleteAll();
 	}

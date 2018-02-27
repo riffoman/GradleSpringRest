@@ -1,32 +1,21 @@
 package com.costs.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import com.costs.data.Category;
 import com.costs.data.Cost;
 import com.costs.data.User;
-import com.costs.repositories.CategoryRepositoryImpl;
 import com.costs.repositories.CostRepositoryImpl;
 import com.costs.repositories.UserRepositoryImpl;
 import com.costs.util.Utility;
@@ -44,7 +33,6 @@ public class CostRestController {
 
 	private static final Logger logger = Logger.getLogger(CostRestController.class);
 	private final int COST_SEQUENCE_ID = 1;
-	private final int CATEGORY_SEQUENCE_ID = 2;
 	private final int USER_SEQUENCE_ID = 3;
 	@Autowired
 	private MongoOperations mongoOperations;
@@ -58,6 +46,7 @@ public class CostRestController {
 		logger.info("Welcome home! The client locale is drugi parametar");
 
 		Utility u = new Utility();
+		u.setMongoOperations(mongoOperations);
 
 		User newUser = new User();
 		newUser.setUserUsername("dd");
@@ -66,6 +55,7 @@ public class CostRestController {
 		
 
 		UserRepositoryImpl users = new UserRepositoryImpl();
+		users.setMongoOperations(mongoOperations);
 		users.insert(newUser);
 
 		return "home";
@@ -76,8 +66,11 @@ public class CostRestController {
 	public Cost createNewCost(@PathVariable("costRecord") Cost costRecord) {
 
 		Utility u = new Utility();
+		u.setMongoOperations(mongoOperations);
 
 		CostRepositoryImpl costs = new CostRepositoryImpl();
+		costs.setMongoOperations(mongoOperations);
+		costRecord.setCostId(u.getSequenceNextval(COST_SEQUENCE_ID));
 
 		Cost costCreated = costs.insert(costRecord);
 		return costCreated;
@@ -87,9 +80,8 @@ public class CostRestController {
 	@ResponseBody
 	public Cost getCostById(@PathVariable("id") int id) {
 
-		Utility u = new Utility();
-
 		CostRepositoryImpl costs = new CostRepositoryImpl();
+		costs.setMongoOperations(mongoOperations);
 
 		Cost costRecord = costs.findCostById(id);
 		return costRecord;
@@ -99,9 +91,8 @@ public class CostRestController {
 	@ResponseBody
 	public void deleteCostById(@PathVariable("id") int id) {
 
-		Utility u = new Utility();
-
 		CostRepositoryImpl costs = new CostRepositoryImpl();
+		costs.setMongoOperations(mongoOperations);
 
 		Cost costRecord = costs.findCostById(id);
 		costs.delete(costRecord);
@@ -111,9 +102,8 @@ public class CostRestController {
 	@ResponseBody
 	public List<Cost> getAllCosts() {
 
-		Utility u = new Utility();
-
 		CostRepositoryImpl costs = new CostRepositoryImpl();
+		costs.setMongoOperations(mongoOperations);
 
 		List<Cost> list = costs.findAll();
 		return list;
@@ -123,9 +113,8 @@ public class CostRestController {
 	@ResponseBody
 	public void deleteAllCosts() {
 
-		Utility u = new Utility();
-
 		CostRepositoryImpl costs = new CostRepositoryImpl();
+		costs.setMongoOperations(mongoOperations);
 
 		costs.deleteAll();
 	}
