@@ -51,24 +51,24 @@ public class CostRestController {
 		Utility u = new Utility();
 		u.setMongoOperations(mongoOperations);
 
+		Category newCategory = new Category();
+		newCategory.setCategoryId(u.getSequenceNextval(CATEGORY_SEQUENCE_ID));
+		newCategory.setCategoryName("Naziv Kategorije");
+
 		Cost newCost = new Cost();
 		newCost.setCostId(u.getSequenceNextval(COST_SEQUENCE_ID));
 		newCost.setCostName("Naziv troska");
 		newCost.setCostDescription("Opis nekog troska");
 		newCost.setCostAmmount(243);
-		newCost.setCostCategory(146);
-
-		Category newCategory = new Category();
-		newCategory.setCategoryId(u.getSequenceNextval(COST_SEQUENCE_ID));
-		newCategory.setCategoryName("Naziv Kategorije");
-
-		CostRepositoryImpl costs = new CostRepositoryImpl();
-		costs.setMongoOperations(mongoOperations);
-		costs.insert(newCost);
+		newCost.setCostCategory(newCategory);
 
 		CategoryRepositoryImpl categories = new CategoryRepositoryImpl();
 		categories.setMongoOperations(mongoOperations);
 		categories.insert(newCategory);
+
+		CostRepositoryImpl costs = new CostRepositoryImpl();
+		costs.setMongoOperations(mongoOperations);
+		costs.insert(newCost);
 
 		return "home";
 	}

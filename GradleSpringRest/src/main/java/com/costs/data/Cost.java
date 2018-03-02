@@ -1,6 +1,7 @@
 package com.costs.data;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -10,7 +11,12 @@ public class Cost {
 	private String costName;
 	private String costDescription;
 	private double costAmmount;
-	private int costCategory;
+
+	@DBRef
+	private Category costCategory;
+
+	@DBRef
+	private User costUser;
 
 	public int getCostId() {
 		return costId;
@@ -24,11 +30,11 @@ public class Cost {
 		this.costName = costName;
 	}
 
-	public int getCostCategory() {
+	public Category getCostCategory() {
 		return costCategory;
 	}
 
-	public void setCostCategory(int costCategory) {
+	public void setCostCategory(Category costCategory) {
 		this.costCategory = costCategory;
 	}
 
