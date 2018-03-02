@@ -7,11 +7,33 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Cost {
 	@Id
 	private int costId;
+	private String costName;
 	private String costDescription;
 	private double costAmmount;
+	private int costCategory;
 
 	public int getCostId() {
 		return costId;
+	}
+
+	public String getCostName() {
+		return costName;
+	}
+
+	public void setCostName(String costName) {
+		this.costName = costName;
+	}
+
+	public int getCostCategory() {
+		return costCategory;
+	}
+
+	public void setCostCategory(int costCategory) {
+		this.costCategory = costCategory;
+	}
+
+	public void setCostDescription(String costDescription) {
+		this.costDescription = costDescription;
 	}
 
 	public void setCostId(int costId) {
@@ -20,10 +42,6 @@ public class Cost {
 
 	public String getCostDescription() {
 		return costDescription;
-	}
-
-	public void setCostsDescription(String costDescription) {
-		this.costDescription = costDescription;
 	}
 
 	public double getCostAmmount() {

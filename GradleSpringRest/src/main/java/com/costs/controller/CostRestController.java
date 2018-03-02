@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.costs.data.Category;
 import com.costs.data.Cost;
 import com.costs.data.User;
+import com.costs.repositories.CategoryRepositoryImpl;
 import com.costs.repositories.CostRepositoryImpl;
 import com.costs.repositories.UserRepositoryImpl;
 import com.costs.util.Utility;
@@ -33,6 +35,7 @@ public class CostRestController {
 
 	private static final Logger logger = Logger.getLogger(CostRestController.class);
 	private final int COST_SEQUENCE_ID = 1;
+	private final int CATEGORY_SEQUENCE_ID = 2;
 	private final int USER_SEQUENCE_ID = 3;
 	@Autowired
 	private MongoOperations mongoOperations;
@@ -48,15 +51,24 @@ public class CostRestController {
 		Utility u = new Utility();
 		u.setMongoOperations(mongoOperations);
 
-		User newUser = new User();
-		newUser.setUserUsername("dd");
-		newUser.setUserPassword("dd");
-		newUser.setUserId(u.getSequenceNextval(USER_SEQUENCE_ID));
-		
+		Cost newCost = new Cost();
+		newCost.setCostId(u.getSequenceNextval(COST_SEQUENCE_ID));
+		newCost.setCostName("Naziv troska");
+		newCost.setCostDescription("Opis nekog troska");
+		newCost.setCostAmmount(243);
+		newCost.setCostCategory(146);
 
-		UserRepositoryImpl users = new UserRepositoryImpl();
-		users.setMongoOperations(mongoOperations);
-		users.insert(newUser);
+		Category newCategory = new Category();
+		newCategory.setCategoryId(u.getSequenceNextval(COST_SEQUENCE_ID));
+		newCategory.setCategoryName("Naziv Kategorije");
+
+		CostRepositoryImpl costs = new CostRepositoryImpl();
+		costs.setMongoOperations(mongoOperations);
+		costs.insert(newCost);
+
+		CategoryRepositoryImpl categories = new CategoryRepositoryImpl();
+		categories.setMongoOperations(mongoOperations);
+		categories.insert(newCategory);
 
 		return "home";
 	}
